@@ -6,11 +6,11 @@ import _pickle as pickle
 import sys
 
 #使用するフォルダ名と出力するファイル名を指定する
-#i.e.　python get_data.py images_background_small1 small1
+#i.e.　python get_data.py DATA/images_background_small1 DATA/small1
 args = sys.argv
 
 #globで全てのファイル名を取得
-files = glob("DATA/{}/**/**/**".format(args[1]))
+files = glob("{}/**/**/**".format(args[1]))
 
 #1つの文字に1つのidを対応付る
 filenames = []
@@ -53,4 +53,4 @@ train_label = np.array(train_label,dtype=np.int32)
 test_data = np.array(test_data,dtype=np.float32)
 test_label = np.array(test_label,dtype=np.int32)
 
-np.savez_compressed("DATA/{}.npz".format(args[2]),train_data=train_data,train_label=train_label,test_data=test_data,test_label=test_label)
+np.savez_compressed("{}.npz".format(args[2]),train_data=train_data,train_label=train_label,test_data=test_data,test_label=test_label)
