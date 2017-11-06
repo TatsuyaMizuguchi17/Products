@@ -1,6 +1,13 @@
 import numpy as np
 import _pickle as pickle
 import matplotlib.pyplot as plt
+import os
+
+def omniglot(dataname="small1"):
+    path = os.path.dirname(os.path.abspath(__file__))
+    with open("{}/DATA/{}".format(path,dataname),"rb") as f:
+        dataset = pickle.load(f)
+    return dataset
 
 #問題セットを取得する
 def get_omniglot_questionset(use_data, use_label, QUESTION_NUM = 100, CHOICE_NUM = 5):

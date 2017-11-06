@@ -6,11 +6,11 @@ import _pickle as pickle
 import sys
 
 #使用するフォルダ名と出力するファイル名を指定する
-#i.e.　python get_data.py DATA/images_background_small1 DATA/small1
+#例　["images_background_small1","DATA/small1"]
 args = sys.argv
 
 #globで全てのファイル名を取得
-files = glob("{}/**/**/**".format(args[1]))
+files = glob("{}/**/**/**".format(args[0]))
 
 #1つの文字に1つのidを対応付る
 filenames = []
@@ -21,8 +21,8 @@ for file in files:
 
 chara2id = {fname:np.array([i]) for i,fname in enumerate(filenames)}
 
-#==========データの取得と変換===========#
-#環境によるが,smallで数分,largeで数十分かかる
+#===データの取得と変換===#
+#環境によるが2分くらいかかる
 train_data = np.zeros((0,1,105,105))
 train_label = np.zeros((0,1))
 test_data = np.zeros((0,1,105,105))
@@ -53,4 +53,6 @@ train_label = np.array(train_label,dtype=np.int32)
 test_data = np.array(test_data,dtype=np.float32)
 test_label = np.array(test_label,dtype=np.int32)
 
-np.savez_compressed("{}.npz".format(args[2]),train_data=train_data,train_label=train_label,test_data=test_data,test_label=test_label)
+dataset = {"train_data":train_data,"train_label":train_label,"test_data":test_data,"test_label":test_label}
+with open("{}".format(args[1]),"wb") as f:
+    pickle.dump(dataset,f)
