@@ -5,8 +5,7 @@ import os
 
 def omniglot(dataname="small1"):
     path = os.path.dirname(os.path.abspath(__file__))
-    with open("{}/DATA/{}".format(path,dataname),"rb") as f:
-        dataset = pickle.load(f)
+    dataset = np.load("{}/DATA/{}.npz".format(path,dataname))
     return dataset
 
 #問題セットを取得する
